@@ -1,4 +1,3 @@
-// contracts/GameItem.sol
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
@@ -12,16 +11,21 @@ contract Pet is ERC721URIStorage {
 
     constructor() ERC721("Pet", "PET") {}
 
+    event PetNFTCreated (
+        uint tokenId,
+        string imageURL,
+        uint date,
+        address from
+    );
+
     function mintPetNFT(address person, string memory tokenURI)
-        public
-        returns (uint256)
+        external 
     {
         _tokenIds.increment();
 
         uint256 newItemId = _tokenIds.current();
         _mint(person, newItemId);
         _setTokenURI(newItemId, tokenURI);
-
-        return newItemId;
+        emit PetNFTCreated(newItemId, tokenURI, block.timestamp, person);
     }
 }

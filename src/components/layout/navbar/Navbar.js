@@ -123,7 +123,32 @@ export const Navbar = withRouter(({ account, connectWallet }) => {
 
             <div className="grow" />
             <div className="sectionDesktop">
-              {/* Add Account  */}
+              {
+                account ? (
+                  <>
+                    <Button className="whiteLink">
+                      {account.substring(0, 8)}...{account.substring(32, 24)}
+                    </Button>
+                    <Button
+                      variant="contained"
+                      className="connected-btn"
+                      endIcon={<VerifiedUserSharpIcon />}
+                    >
+                      Connected
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    variant="contained"
+                    className="connect-wallet-btn"
+                    onClick={() => {
+                      connectWallet();
+                    }}
+                  >
+                    Connect Wallet
+                  </Button>
+                )
+              }
 
               <IconButton
                 edge="end"
